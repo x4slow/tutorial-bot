@@ -1,5 +1,5 @@
 {
   "prefix": "/",
-  "creadorID": "OWNER-ID-HERE",
+  "ownerID": "OWNER-ID-HERE",
   "token": "TOKEN-HERE"
 }
