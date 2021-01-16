@@ -11,7 +11,7 @@ client.prefix = config.prefix;
     require(`./handlers/${handler}`)(client);
 });
 
-  client.on('guildMemberAdd', async member => {
+  client.on('guildMemberAdd', async (member) => {
     require("./events/guild/memberAdd")(member)
   })
 
