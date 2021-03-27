@@ -5,14 +5,12 @@ const ms = require('ms');
 
 module.exports = async (bot, message) => {
 
-    let prefixbot = new RegExp(`^<@!?${bot.user.id}>( |)$`)
+    if (message.author.bot && message.channel.type === 'dm') return;
 
+    let prefixbot = new RegExp(`^<@!?${bot.user.id}>( |)$`);
     if (message.content.match(mencionbot)) {
-      return message.channel.send(`Hey! My prefix here is: ${prefix}`)
+      return message.channel.send(`Hey! My prefix here is: ${prefix}`);
     }
-
-    if (message.author.bot) return;
-    if (message.channel.type == 'dm') return;
 
     if (!message.content.toLowerCase().startsWith(prefix)) return;
 
@@ -28,18 +26,18 @@ module.exports = async (bot, message) => {
     if (!command) command = bot.commands.get(bot.aliases.get(cmd));
     
     if (command) {
-        if (command.timeout){
+        if (command.timeout) {
             if (Timeout.has(`${message.author.id}${command.name}`)) {
-                return message.channel.send(`Hey! You have to wait **${ms(command.timeout)}** to place the command again.`)
+                message.channel.send(`Hey! You have to wait **${ms(command.timeout)}** to place the command again.`)
             } else {
                 command.run(bot, message, args);
-                Timeout.add(`${message.author.id}${command.name}`)
+                Timeout.add(`${message.author.id}${command.name}`);
                 setTimeout(() => {
-                Timeout.delete(`${message.author.id}${command.name}`)
+                Timeout.delete(`${message.author.id}${command.name}`);
                 }, command.timeout);
             }
         } else {
-            command.run(bot,message,args)
+            command.run(bot, message ,args);
         }
     }
 }
